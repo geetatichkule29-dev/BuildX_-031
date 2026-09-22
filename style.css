@@ -1,67 +1,115 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+/* Base Container Position & Glassmorphism */
+.toast-container {
+  position: fixed;
+  bottom: 1.25rem; /* 20px from bottom */
+  right: 1.25rem;  /* 20px from right */
+  max-width: 28rem; /* 448px */
+  min-width: 18rem;
+  background: rgba(15, 23, 42, 0.95); /* Deep slate */
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(51, 65, 85, 0.8);
+  color: #ffffff;
+  padding: 1rem;
+  border-radius: 1rem; /* 16px */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-.pulse-danger {
-  animation: pulse-ring 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+/* Hidden State (Slide down + Fade out) */
+.toast-hidden {
+  transform: translateY(6rem); /* 96px */
+  opacity: 0;
+  pointer-events: none;
 }
 
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-  }
-
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 14px rgba(239, 68, 68, 0);
-  }
-
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
-  }
+/* Visible State */
+.toast-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.leaflet-container {
-  background: #0f172a;
-  font-family: inherit;
+/* Icon Box */
+.toast-icon {
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
+.toast-icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
+/* Text Typography */
+.toast-content {
+  flex: 1 1 0%;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
+.toast-title {
+  font-size: 0.875rem; /* 14px */
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.toast-msg {
+  font-size: 0.75rem; /* 12px */
+  color: #94a3b8; /* Slate 400 */
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+
+/* Close Button */
+.toast-close-btn {
   background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease, background 0.15s ease;
 }
 
-/* Smooth transitions */
-button,
-.card,
-.role-tab {
-  transition: all 0.2s ease;
+.toast-close-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
 }
 
-/* Map popup */
-.leaflet-popup-content-wrapper {
-  border-radius: 12px;
+.toast-close-btn svg {
+  width: 1rem;
+  height: 1rem;
 }
 
-.leaflet-popup-content {
-  margin: 10px;
+/* Optional Auto-Dismiss Timer Bar */
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: rgba(59, 130, 246, 0.8);
+  width: 100%;
+  transform-origin: left;
 }
 
-/* Mobile improvements */
-@media (max-width: 768px) {
-  #nagpurMap {
-    height: 380px !important;
-  }
-}
+/* Color Theme Presets */
+.toast-color-emerald { background: rgba(16, 185, 129, 0.18); color: #34d399; }
+.toast-color-rose    { background: rgba(244, 63, 94, 0.18);   color: #fb7185; }
+.toast-color-amber   { background: rgba(245, 158, 11, 0.18);  color: #fbbf24; }
+.toast-color-purple  { background: rgba(168, 85, 247, 0.18); color: #c084fc; }
+.toast-color-sky     { background: rgba(14, 165, 233, 0.18);  color: #38bdf8; }
+.toast-color-blue    { background: rgba(59, 130, 246, 0.18);  color: #60a5fa; }
